@@ -42,6 +42,12 @@ const centroSchema = new mongoose.Schema(
         },
       },
     },
+    recursosCentro: {
+      medicos: { type: Number, default: 0 },
+      voluntarios: { type: Number, default: 0 },
+      veiculos: { type: Number, default: 0 },
+      kitsMedicos: { type: Number, default: 0 },
+    },
   },
   {
     timestamps: true,

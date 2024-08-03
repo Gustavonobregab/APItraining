@@ -1,0 +1,70 @@
+[
+	{
+		"recursosCentro": {
+			"medicos": 3,
+			"voluntarios": 2,
+			"veiculos": 1,
+			"kitsMedicos": 4
+		},
+		"_id": "66aeba08f1bf6cc97a585526",
+		"nome": "Vagalumes",
+		"endereco": "Rua ananás de oliveira",
+		"localizacao": "Brazil",
+		"capacidadeMax": 7,
+		"quantidadePessoas": 2,
+		"createdAt": "2024-08-03T23:15:20.161Z",
+		"updatedAt": "2024-08-03T23:15:20.161Z",
+		"__v": 0
+	},
+	{
+		"recursosCentro": {
+			"medicos": 2,
+			"voluntarios": 4,
+			"veiculos": 3,
+			"kitsMedicos": 2
+		},
+		"_id": "66aebaa0f1bf6cc97a58552b",
+		"nome": "Sol Nascente",
+		"endereco": "Avenida do Sol, 123",
+		"localizacao": "Recife, Brazil",
+		"capacidadeMax": 12,
+		"quantidadePessoas": 6,
+		"createdAt": "2024-08-03T23:17:52.478Z",
+		"updatedAt": "2024-08-03T23:17:52.478Z",
+		"__v": 0
+	},
+	{
+		"recursosCentro": {
+			"medicos": 5,
+			"voluntarios": 3,
+			"veiculos": 2,
+			"kitsMedicos": 5
+		},
+		"_id": "66aebab3f1bf6cc97a58552d",
+		"nome": "Paz e Amor",
+		"endereco": "Rua da Harmonia, 456",
+		"localizacao": "Fortaleza, Brazil",
+		"capacidadeMax": 20,
+		"quantidadePessoas": 10,
+		"createdAt": "2024-08-03T23:18:11.728Z",
+		"updatedAt": "2024-08-03T23:18:11.728Z",
+		"__v": 0
+	},
+	{
+		"recursosCentro": {
+			"medicos": 4,
+			"voluntarios": 1,
+			"veiculos": 1,
+			"kitsMedicos": 3
+		},
+		"_id": "66aebabaf1bf6cc97a58552f",
+		"nome": "Nova Vida",
+		"endereco": "Praça da Esperança, 789",
+		"localizacao": "Salvador, Brazil",
+		"capacidadeMax": 15,
+		"quantidadePessoas": 7,
+		"createdAt": "2024-08-03T23:18:18.476Z",
+		"updatedAt": "2024-08-03T23:18:18.476Z",
+		"__v": 0
+	}
+]
