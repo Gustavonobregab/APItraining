@@ -1,8 +1,8 @@
 import mongoose from 'mongoose'
 
 /* Aqui eu criei o schema para o centro comunitário usando Mongoose.
- Este schema define a estrutura dos documentos
- que serão armazenados no banco de dados MongoDB. 
+Este schema define a estrutura dos documentos
+que serão armazenados no banco de dados MongoDB. 
 Cada campo tem suas próprias validações para garantir a integridade dos dados.*/
 
 const centroSchema = new mongoose.Schema(
@@ -36,12 +36,11 @@ const centroSchema = new mongoose.Schema(
       required: [true, 'Insira a quantidade de pessoas por favor.'],
       default: 0,
       min: [0, 'A quantidade de pessoas não pode ser menor que 0.'],
-      max: [
-        function () {
-          return this.capacidadeMax
+      validate: {
+        validator: function (value) {
+          return value <= this.capacidadeMax
         },
-        'A quantidade de pessoas não pode exceder a capacidade máxima.',
-      ],
+      },
     },
   },
   {
