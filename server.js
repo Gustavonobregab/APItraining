@@ -64,6 +64,44 @@ app.put('/centro/nome/:nome', async (req, res) => {
   }
 })
 
+app.get('/media/centro', async (req, res) => {
+  try {
+    const centros = await Centro.find({})
+
+    if (centros.length === 0) {
+      return res.status(404).json({ message: 'Nenhum centro encontrado' })
+    }
+
+    let totalMedicos = 0
+    let totalVoluntarios = 0
+    let totalVeiculos = 0
+    let totalKitsMedicos = 0
+
+    centros.forEach((centro) => {
+      totalMedicos += centro.recursosCentro.medicos
+      totalVoluntarios += centro.recursosCentro.voluntarios
+      totalVeiculos += centro.recursosCentro.veiculos
+      totalKitsMedicos += centro.recursosCentro.kitsMedicos
+    })
+
+    const mediaMedicos = totalMedicos / centros.length
+    const mediaVoluntarios = totalVoluntarios / centros.length
+    const mediaVeiculos = totalVeiculos / centros.length
+    const mediaKitsMedicos = totalKitsMedicos / centros.length
+
+    res.status(200).json({
+      mediaMedicos,
+      mediaVoluntarios,
+      mediaVeiculos,
+      mediaKitsMedicos,
+    })
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: `Erro ao calcular médias: ${error.message}` })
+  }
+})
+
 // Fazendo intercâmbio de suprimentos
 app.post('/intercambio', async (req, res) => {
   const { centroOrigemId, centroDestinoId, recursos } = req.body
