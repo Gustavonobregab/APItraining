@@ -1,70 +1,100 @@
-[
-	{
-		"recursosCentro": {
-			"medicos": 3,
-			"voluntarios": 2,
-			"veiculos": 1,
-			"kitsMedicos": 4
-		},
-		"_id": "66aeba08f1bf6cc97a585526",
-		"nome": "Vagalumes",
-		"endereco": "Rua ananás de oliveira",
-		"localizacao": "Brazil",
-		"capacidadeMax": 7,
-		"quantidadePessoas": 2,
-		"createdAt": "2024-08-03T23:15:20.161Z",
-		"updatedAt": "2024-08-03T23:15:20.161Z",
-		"__v": 0
-	},
-	{
-		"recursosCentro": {
-			"medicos": 2,
-			"voluntarios": 4,
-			"veiculos": 3,
-			"kitsMedicos": 2
-		},
-		"_id": "66aebaa0f1bf6cc97a58552b",
-		"nome": "Sol Nascente",
-		"endereco": "Avenida do Sol, 123",
-		"localizacao": "Recife, Brazil",
-		"capacidadeMax": 12,
-		"quantidadePessoas": 6,
-		"createdAt": "2024-08-03T23:17:52.478Z",
-		"updatedAt": "2024-08-03T23:17:52.478Z",
-		"__v": 0
-	},
-	{
-		"recursosCentro": {
-			"medicos": 5,
-			"voluntarios": 3,
-			"veiculos": 2,
-			"kitsMedicos": 5
-		},
-		"_id": "66aebab3f1bf6cc97a58552d",
-		"nome": "Paz e Amor",
-		"endereco": "Rua da Harmonia, 456",
-		"localizacao": "Fortaleza, Brazil",
-		"capacidadeMax": 20,
-		"quantidadePessoas": 10,
-		"createdAt": "2024-08-03T23:18:11.728Z",
-		"updatedAt": "2024-08-03T23:18:11.728Z",
-		"__v": 0
-	},
-	{
-		"recursosCentro": {
-			"medicos": 4,
-			"voluntarios": 1,
-			"veiculos": 1,
-			"kitsMedicos": 3
-		},
-		"_id": "66aebabaf1bf6cc97a58552f",
-		"nome": "Nova Vida",
-		"endereco": "Praça da Esperança, 789",
-		"localizacao": "Salvador, Brazil",
-		"capacidadeMax": 15,
-		"quantidadePessoas": 7,
-		"createdAt": "2024-08-03T23:18:18.476Z",
-		"updatedAt": "2024-08-03T23:18:18.476Z",
-		"__v": 0
-	}
-]
+
+
+-----------------------------------
+Criar Centro
+Endpoint: POST /centro
+
+Body JSON:
+
+json
+
+{
+  "nome": "Centro A",
+  "endereco": "Rua Principal, 123",
+  "localizacao": "Bairro X",
+  "capacidadeMax": 100,
+  "quantidadePessoas": 30,
+  "recursosCentro": {
+    "medicos": 5,
+    "voluntarios": 10,
+    "veiculos": 3,
+    "kitsMedicos": 20
+  }
+}
+
+--------------------------------------
+ Obter Todos os Centros
+Endpoint: GET /centro
+
+Sem body. Apenas faça a requisição GET.
+
+------------------------------------------
+
+Relatório: Centros Comunitários com Ocupação Maior que 90%
+Endpoint: GET /relatorios/ocupacao-alta
+
+-------------------------------------------
+
+4. Atualizar Quantidade de Pessoas pelo Nome da Aldeia
+Endpoint: PUT /centro/nome/{nome}
+
+Body JSON:
+
+json
+
+{
+  "quantidadePessoas": 50
+}
+
+-------------------------------------------
+
+Média de Recursos por Centro
+Endpoint: GET /media/centro
+
+--------------------------------------------
+
+Fazer Intercâmbio de Suprimentos
+Endpoint: POST /intercambio
+
+Body JSON:
+
+json
+
+{
+  "centroOrigemId": "id_do_centro_origem",
+  "centroDestinoId": "id_do_centro_destino",
+  "recursos": {
+    "medicos": 2,
+    "voluntarios": 3,
+    "veiculos": 1,
+    "kitsMedicos": 10
+  }
+}
+
+Relatório: Histórico de Negociação de um Determinado Centro
+Endpoint: GET /relatorios/historico-negociacao
+
+--------------------------------------------
+
+Query Parameters:
+
+centroId (ID do centro para o qual você deseja o histórico)
+dataInicio (opcional) (Data de início para filtrar o histórico)
+Exemplo de Query:
+
+bash
+
+/relatorios/historico-negociacao?centroId=66ae174aee8e0f1968780072&dataInicio=2024-01-01
+
+------------------------------------------
+
+Deletar Centro
+Endpoint: DELETE /centro/{id}
+
+Sem body. Apenas faça a requisição DELETE com o ID do centro na URL.
+
+Exemplo de URL:
+
+bash
+Copiar código
+/centro/66ae174aee8e0f1968780072

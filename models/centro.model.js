@@ -1,10 +1,5 @@
 import mongoose from 'mongoose'
 
-/* Aqui eu criei o schema para o centro comunitário usando Mongoose.
-Este schema define a estrutura dos documentos
-que serão armazenados no banco de dados MongoDB. 
-Cada campo tem suas próprias validações para garantir a integridade dos dados.*/
-
 const centroSchema = new mongoose.Schema(
   {
     nome: {

@@ -31,6 +31,20 @@ app.get('/centro', async (req, res) => {
   }
 })
 
+// Relatório: Centros comunitários com ocupação maior que 90%
+app.get('/relatorios/ocupacao-alta', async (req, res) => {
+  try {
+    const centros = await Centro.find({
+      $expr: {
+        $gt: [{ $divide: ['$quantidadePessoas', '$capacidadeMax'] }, 0.9],
+      },
+    })
+    res.status(200).json(centros)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+})
+
 // Atualizar quantidade de pessoas pelo nome da aldeia:
 app.put('/centro/nome/:nome', async (req, res) => {
   try {
@@ -64,6 +78,7 @@ app.put('/centro/nome/:nome', async (req, res) => {
   }
 })
 
+//Média de recursos pelo centro passado na url
 app.get('/media/centro', async (req, res) => {
   try {
     const centros = await Centro.find({})
@@ -103,6 +118,7 @@ app.get('/media/centro', async (req, res) => {
 })
 
 // Fazendo intercâmbio de suprimentos
+
 app.post('/intercambio', async (req, res) => {
   const { centroOrigemId, centroDestinoId, recursos } = req.body
 
@@ -120,6 +136,7 @@ app.post('/intercambio', async (req, res) => {
       'veiculos',
       'kitsMedicos',
     ]
+
     for (const recurso in recursos) {
       if (!recursosValidos.includes(recurso)) {
         return res.status(400).json({ message: `Recurso inválido: ${recurso}` })
@@ -138,21 +155,33 @@ app.post('/intercambio', async (req, res) => {
       kitsMedicos: 7,
     }
 
-    const pontosOrigem = Object.keys(recursos).reduce((total, recurso) => {
-      return total + recursos[recurso] * valorRecursos[recurso]
-    }, 0)
-
-    if (centroOrigem.quantidadePessoas / centroOrigem.capacidadeMax > 0.9) {
+    const calcularPontos = (recursos) => {
+      return Object.keys(recursos).reduce((total, recurso) => {
+        return total + (recursos[recurso] || 0) * valorRecursos[recurso]
+      }, 0)
     }
 
-    const pontosDestino = Object.keys(recursos).reduce((total, recurso) => {
-      return total + recursos[recurso] * valorRecursos[recurso]
-    }, 0)
+    const pontosOrigem = calcularPontos(recursos)
+    const pontosDestino = calcularPontos(recursos)
 
     if (pontosOrigem !== pontosDestino) {
       return res
         .status(400)
         .json({ message: 'Os pontos dos recursos devem ser iguais' })
+    }
+
+    for (const recurso in recursos) {
+      if (centroOrigem.recursosCentro[recurso] < recursos[recurso]) {
+        return res.status(400).json({
+          message: `Centro de origem não tem recursos suficientes de ${recurso}`,
+        })
+      }
+    }
+
+    if (centroDestino.quantidadePessoas / centroDestino.capacidadeMax > 0.9) {
+      return res.status(400).json({
+        message: 'Centro de destino está próximo da capacidade máxima',
+      })
     }
 
     for (const recurso in recursos) {
@@ -163,6 +192,7 @@ app.post('/intercambio', async (req, res) => {
     await centroOrigem.save()
     await centroDestino.save()
 
+    // Registrar o intercâmbio
     const intercambio = new Intercambio({
       centroOrigem: centroOrigemId,
       centroDestino: centroDestinoId,
@@ -179,6 +209,30 @@ app.post('/intercambio', async (req, res) => {
     res
       .status(500)
       .json({ message: `Erro ao realizar intercâmbio: ${error.message}` })
+  }
+})
+
+// Relatório: Histórico de negociação de um determinado centro
+app.get('/relatorios/historico-negociacao', async (req, res) => {
+  const { centroId, dataInicio } = req.query
+
+  if (!centroId) {
+    return res.status(400).json({ error: 'O ID do centro é obrigatório.' })
+  }
+
+  try {
+    const filtro = {
+      $or: [{ centroOrigem: centroId }, { centroDestino: centroId }],
+    }
+
+    if (dataInicio) {
+      filtro.data = { $gte: new Date(dataInicio) }
+    }
+
+    const historico = await Intercambio.find(filtro)
+    res.status(200).json(historico)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
   }
 })
 
