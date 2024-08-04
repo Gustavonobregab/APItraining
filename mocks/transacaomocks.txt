@@ -1,32 +1,55 @@
- {
+Transação Válida
+
+{
   "centroOrigemId": "66aeba08f1bf6cc97a585526",
   "centroDestinoId": "66aebaa0f1bf6cc97a58552b",
   "recursos": {
     "medicos": 1,
-    "voluntarios": 2,
-    "veiculos": 1,
-    "kitsMedicos": 0
-  }
-}
-
-{
-  "centroOrigemId": "66aebaa0f1bf6cc97a58552b",
-  "centroDestinoId": "66aebab3f1bf6cc97a58552d",
-  "recursos": {
-    "medicos": 2,
-    "voluntarios": 3,
-    "veiculos": 1,
-    "kitsMedicos": 2
-  }
-}
-
-{
-  "centroOrigemId": "66aebab3f1bf6cc97a58552d",
-  "centroDestinoId": "66aebabaf1bf6cc97a58552f",
-  "recursos": {
-    "medicos": 3,
     "voluntarios": 1,
     "veiculos": 1,
     "kitsMedicos": 1
   }
 }
+
+
+ Recurso Inválido: "Recurso inválido: kitsInvalidos"
+
+
+ {
+  "centroOrigemId": "66aeba08f1bf6cc97a585526",
+  "centroDestinoId": "66aebaa0f1bf6cc97a58552b",
+  "recursos": {
+    "medicos": 1,
+    "voluntarios": 1,
+    "veiculos": 1,
+    "kitsInvalidos": 1
+  }
+}
+
+Quantidade Negativa : "Quantidade de medicos deve ser positiva"
+
+{
+  "centroOrigemId": "66aeba08f1bf6cc97a585526",
+  "centroDestinoId": "66aebaa0f1bf6cc97a58552b",
+  "recursos": {
+    "medicos": -1,
+    "voluntarios": 2,
+    "veiculos": 1,
+    "kitsMedicos": 1
+  }
+}
+
+ Centro Não Encontrado : "message": "Centro(s) não encontrado(s)"
+
+ {
+  "centroOrigemId": "66aebabaf1bf6cc97a58552f",
+  "centroDestinoId": "999999999999999999999999",
+  "recursos": {
+    "medicos": 1,
+    "voluntarios": 2,
+    "veiculos": 1,
+    "kitsMedicos": 1
+  }
+}
+
+
